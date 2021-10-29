@@ -84,3 +84,14 @@ AppStateController state({required BuildContext context, bool listen = true}) =>
 
 // ignore: non_constant_identifier_names
 Size SIZE({required BuildContext context}) => MediaQuery.of(context).size;
+
+void goto(
+    {required BuildContext context,
+    required String routeName,
+    bool forever = false}) {
+  if (forever) {
+    Navigator.pushReplacementNamed(context, routeName);
+  } else {
+    Navigator.pushNamed(context, routeName);
+  }
+}

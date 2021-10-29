@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppStateController extends ChangeNotifier {
   int? currentMenuItem;
 
-  String? currentTitle;
+  String currentTitle = '';
 
   void setCurrentMenuItem(int index) {
     currentMenuItem = index;
