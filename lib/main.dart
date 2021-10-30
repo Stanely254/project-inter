@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:global_configuration/global_configuration.dart';
 import 'package:project/controllers/app_state_controller.dart';
 import 'package:project/views/design/design_view.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +11,8 @@ import 'views/home/home_view.dart';
 import 'views/info/info_view.dart';
 import 'views/response/response_view.dart';
 
-void main() {
+Future<void> main() async {
+  await GlobalConfiguration().loadFromAsset("app_settings");
   runApp(MultiProvider(
       providers: [ChangeNotifierProvider.value(value: AppStateController())],
       child: MyApp()));
