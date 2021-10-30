@@ -20,6 +20,7 @@ class _HomeViewState extends State<HomeView> {
       builder: (context, appState, child) => Scaffold(
           appBar: AppBar(
             title: CustomText(text: appState.currentTitle),
+            centerTitle: true,
           ),
           drawer: CustomMenuDrawer(),
           body: SizedBox(

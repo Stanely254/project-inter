@@ -34,6 +34,7 @@ class _ResponseViewState extends State<ResponseView> {
     return Scaffold(
         appBar: AppBar(
           title: CustomText(text: state(context: context).currentTitle),
+          centerTitle: true,
         ),
         body: SizedBox(
           height: SIZE(context: context).height,
