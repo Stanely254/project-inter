@@ -6,18 +6,21 @@ import 'package:project/models/todos.dart';
 
 class BaseClientService {
   final String url;
-  const BaseClientService({this.url = 'https://jsonplaceholder.typicode.com/'});
+  const BaseClientService({this.url = 'https://jsonplaceholder.typicode.com'});
 
   Future<List<Todos>> getAllTodos() async {
     List<Todos> todos = [];
-    httpGet(Uri.parse(url),
+    String responseString = '';
+    httpGet(Uri.parse("$url/todos?limit=5"),
             headers: {'Accept': 'application/json'},
             responseType: ResponseType.json)
-        .then((value) {
-      if (value.body == '201' && value.statusCode == 200) {
-        var list = json.decode(value.body) as List;
-        todos = list.map<Todos>((json) => Todos.fromJson(json)).toList();
+        .then((response) {
+      if (response.statusCode == 200) {
+        responseString = response.body;
+
+        todos = todosFromJson(responseString);
       }
+      printLog("RESPONSE======================$responseString");
     });
     return todos;
   }

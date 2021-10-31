@@ -4,21 +4,23 @@
 
 import 'dart:convert';
 
-Todos todosFromJson(String str) => Todos.fromJson(json.decode(str));
+List<Todos> todosFromJson(String str) =>
+    List<Todos>.from(json.decode(str).map((x) => Todos.fromJson(x)));
 
-String todosToJson(Todos data) => json.encode(data.toJson());
+String todosToJson(List<Todos> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Todos {
   Todos({
-    required this.userId,
-    required this.id,
-    required this.title,
-    required this.completed,
+    this.userId,
+    this.id,
+    this.title,
+    this.completed = false,
   });
 
-  int userId;
-  int id;
-  String title;
+  int? userId;
+  int? id;
+  String? title;
   bool completed;
 
   factory Todos.fromJson(Map<String, dynamic> json) => Todos(

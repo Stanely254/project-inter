@@ -10,25 +10,25 @@ String userToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
     required this.phone,
     this.dateAdded,
   });
 
-  int id;
+  String? id;
   String name;
   String email;
   String phone;
-  DateTime? dateAdded;
+  String? dateAdded;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
         email: json["email"],
         phone: json["phone"],
-        dateAdded: DateTime.parse(json["date_added"]),
+        dateAdded: json["date_added"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,6 +36,6 @@ class User {
         "name": name,
         "email": email,
         "phone": phone,
-        "date_added": dateAdded!.toIso8601String(),
+        "date_added": dateAdded,
       };
 }

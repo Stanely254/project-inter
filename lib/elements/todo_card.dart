@@ -14,9 +14,9 @@ class _TodoCardState extends State<TodoCard> {
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(
-      title: CustomText(text: 'Name'),
+      title: CustomText(text: widget.todo.title!, color: Colors.white),
       activeColor: Theme.of(context).primaryColor,
-      value: true,
+      value: widget.todo.completed,
       onChanged: (value) {
         setState(() {
           value = !value;

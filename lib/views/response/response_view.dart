@@ -7,7 +7,6 @@ import 'package:project/services/base_client_service.dart';
 
 class ResponseView extends StatefulWidget {
   const ResponseView({Key? key}) : super(key: key);
-  static const String routeName = 'response';
 
   @override
   _ResponseViewState createState() => _ResponseViewState();
@@ -19,8 +18,15 @@ class _ResponseViewState extends State<ResponseView> {
 
   void getAllTodos() async {
     baseClient.getAllTodos().then((value) => {
-          if (mounted) {setState(() => todosList = value)}
+          if (mounted)
+            {
+              setState(() {
+                todosList = value;
+              })
+            }
         });
+
+    printLog(todosList.toString());
   }
 
   @override
@@ -33,22 +39,25 @@ class _ResponseViewState extends State<ResponseView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: CustomText(text: state(context: context).currentTitle),
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_ios, color: Colors.white)),
+          title: CustomText(
+            text: 'Response',
+            color: Colors.white,
+            fontSize: SIZE(context: context).width * .065,
+          ),
           centerTitle: true,
         ),
         body: SizedBox(
-          height: SIZE(context: context).height,
-          width: SIZE(context: context).width,
-          child: ListView.separated(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (context, index) => TodoCard(
-                    todo: todosList[index],
+            height: SIZE(context: context).height,
+            width: SIZE(context: context).width,
+            child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: todosList.map((e) => TodoCard(todo: e)).toList(),
                   ),
-              separatorBuilder: (context, index) => Divider(
-                    color: Colors.black,
-                  ),
-              itemCount: todosList.length),
-        ));
+                ))));
   }
 }

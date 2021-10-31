@@ -32,15 +32,19 @@ dependencies:
   provider: ^6.0.1
   intl: ^0.17.0
   page_transition: ^2.0.4
-  sqflite: ^2.0.0+4
   path_provider: ^2.0.4
   lottie: ^1.2.1
-  global_configuration: ^0.1.2
+  shared_preferences: ^2.0.8
+  json_helpers: ^0.1.5
 
 dev_dependencies:
   flutter_native_splash: ^1.2.3
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: FFFFFF
+  image: assets/lottie/welcome.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

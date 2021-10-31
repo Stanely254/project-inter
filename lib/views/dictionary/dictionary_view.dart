@@ -4,7 +4,6 @@ import 'package:project/helpers/logs.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({Key? key}) : super(key: key);
-  static const String routeName = 'dictionary';
 
   @override
   _DictionaryViewState createState() => _DictionaryViewState();
@@ -38,16 +37,22 @@ class _DictionaryViewState extends State<DictionaryView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(text: state(context: context).currentTitle),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white)),
+        title: CustomText(
+          text: 'Dictionary',
+          color: Colors.white,
+          fontSize: SIZE(context: context).width * .065,
+        ),
         centerTitle: true,
-        actions: [],
       ),
       body: SizedBox(
         height: SIZE(context: context).height,
         width: SIZE(context: context).width,
         child: ListView(
           shrinkWrap: true,
-          children: [],
+          //children: ,
         ),
       ),
     );
