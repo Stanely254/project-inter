@@ -20,15 +20,20 @@ class BaseClientService {
         .then((value) {
       if (value.statusCode == 200) {
         //final data = jsonDecode(value.body);
-
-        final data = jsonDecode(value.body);
-        // // for (Map<String, dynamic> i in data) {
-        // todos = data.map<Todos>((json) => Todos.fromJson(json)).toList();
-        for (Map<String, dynamic> i in data) {
-          todos.add(Todos.fromJson(i));
+        try {
+          var jsonString = """
+          ${value.body}
+          """;
+          var list = json.decode(jsonString) as List;
+          todos = list.map<Todos>((json) => Todos.fromJson(json)).toList();
+          // todos = List<Todos>.from(
+          //     json.decode(value.body).map((x) => Todos.fromJson(x))).toList();
+        } catch (e, trace) {
+          printLog("ERR==========================${e.toString()}");
+          printLog("HAPPENDED=========================${trace.toString()}");
         }
       }
-      printLog("RESPONSE======================${value.body}");
+      printLog("RESPONSE======================${todos[0].id}");
     });
     return todos;
   }

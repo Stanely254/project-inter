@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -38,11 +37,6 @@ class _DictionaryViewState extends State<DictionaryView> {
         'nine-hundred': '900'
       };
 
-      SplayTreeMap.from(
-          dictionary,
-          (a, b) => int.parse(dictionary[a]['id'])
-              .compareTo(int.parse(dictionary[b]['id'])));
-
       dictionary.forEach((key, value) =>
           dictionaryList.add(DictionaryModel(id: key, value: value)));
     });
@@ -54,7 +48,7 @@ class _DictionaryViewState extends State<DictionaryView> {
     for (var diction in list) {
       if (diction.id!.contains(new RegExp(r'[0-9]'))) {
         setState(() {
-          final newList = list
+          var newList = list
               .where((element) => element.id!.contains(new RegExp(r'[0-9]')))
               .toList();
 
@@ -62,7 +56,7 @@ class _DictionaryViewState extends State<DictionaryView> {
         });
       } else {
         setState(() {
-          final newList = list
+          var newList = list
               .where((element) => !element.id!.contains(new RegExp(r'[0-9]')))
               .toList();
           newList.sort((a, b) => a.id!.compareTo(b.id!));
@@ -75,7 +69,7 @@ class _DictionaryViewState extends State<DictionaryView> {
   void initState() {
     super.initState();
     createDictionary();
-    //sort(dictionaryList);
+    sort(dictionaryList);
   }
 
   @override
