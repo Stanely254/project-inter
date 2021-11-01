@@ -21,9 +21,10 @@ class DictionaryCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(text: '$keyValue'),
-              CustomText(text: '$value'),
+              CustomText(text: '$keyValue', color: Colors.white),
+              CustomText(text: '$value', color: Colors.white),
             ],
           ),
         ),

@@ -1,6 +1,11 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:project/elements/custom_text.dart';
+import 'package:project/elements/dictionary_card.dart';
 import 'package:project/helpers/logs.dart';
+import 'package:project/models/dictionary_model.dart';
 
 class DictionaryView extends StatefulWidget {
   const DictionaryView({Key? key}) : super(key: key);
@@ -11,6 +16,8 @@ class DictionaryView extends StatefulWidget {
 
 class _DictionaryViewState extends State<DictionaryView> {
   Map<String, dynamic> dictionary = {};
+
+  List<DictionaryModel> dictionaryList = [];
 
   void createDictionary() {
     setState(() {
@@ -30,7 +37,45 @@ class _DictionaryViewState extends State<DictionaryView> {
         'Ninety-Nine': '99',
         'nine-hundred': '900'
       };
+
+      SplayTreeMap.from(
+          dictionary,
+          (a, b) => int.parse(dictionary[a]['id'])
+              .compareTo(int.parse(dictionary[b]['id'])));
+
+      dictionary.forEach((key, value) =>
+          dictionaryList.add(DictionaryModel(id: key, value: value)));
     });
+
+    printLog("DICTIONARY=======================${json.encode(dictionaryList)}");
+  }
+
+  void sort(List<DictionaryModel> list) {
+    for (var diction in list) {
+      if (diction.id!.contains(new RegExp(r'[0-9]'))) {
+        setState(() {
+          final newList = list
+              .where((element) => element.id!.contains(new RegExp(r'[0-9]')))
+              .toList();
+
+          newList.sort((a, b) => int.parse(a.id!).compareTo(int.parse(b.id!)));
+        });
+      } else {
+        setState(() {
+          final newList = list
+              .where((element) => !element.id!.contains(new RegExp(r'[0-9]')))
+              .toList();
+          newList.sort((a, b) => a.id!.compareTo(b.id!));
+        });
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    createDictionary();
+    //sort(dictionaryList);
   }
 
   @override
@@ -52,7 +97,9 @@ class _DictionaryViewState extends State<DictionaryView> {
         width: SIZE(context: context).width,
         child: ListView(
           shrinkWrap: true,
-          //children: ,
+          children: dictionaryList
+              .map((e) => DictionaryCard(keyValue: e.id!, value: e.value!))
+              .toList(),
         ),
       ),
     );

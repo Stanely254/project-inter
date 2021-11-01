@@ -36,7 +36,7 @@ class MenuItems extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomText(
                     text: title,
-                    fontSize: SIZE(context: context).width * .064,
+                    fontSize: SIZE(context: context).width * .054,
                     color: value != appState.currentMenuItem
                         ? Theme.of(context).primaryColor
                         : Colors.white,

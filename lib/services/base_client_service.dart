@@ -10,17 +10,25 @@ class BaseClientService {
 
   Future<List<Todos>> getAllTodos() async {
     List<Todos> todos = [];
-    String responseString = '';
-    httpGet(Uri.parse("$url/todos?limit=5"),
-            headers: {'Accept': 'application/json'},
-            responseType: ResponseType.json)
-        .then((response) {
-      if (response.statusCode == 200) {
-        responseString = response.body;
 
-        todos = todosFromJson(responseString);
+    httpGet(Uri.parse("$url/todos?limit=5"),
+            headers: {
+              'Content-Type': 'application/json;charset=UTF-8',
+              'Charset': 'utf-8'
+            },
+            responseType: ResponseType.json)
+        .then((value) {
+      if (value.statusCode == 200) {
+        //final data = jsonDecode(value.body);
+
+        final data = jsonDecode(value.body);
+        // // for (Map<String, dynamic> i in data) {
+        // todos = data.map<Todos>((json) => Todos.fromJson(json)).toList();
+        for (Map<String, dynamic> i in data) {
+          todos.add(Todos.fromJson(i));
+        }
       }
-      printLog("RESPONSE======================$responseString");
+      printLog("RESPONSE======================${value.body}");
     });
     return todos;
   }

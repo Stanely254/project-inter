@@ -12,15 +12,15 @@ String todosToJson(List<Todos> data) =>
 
 class Todos {
   Todos({
-    this.userId,
-    this.id,
-    this.title,
+    this.userId = 0,
+    this.id = 0,
+    this.title = '',
     this.completed = false,
   });
 
-  int? userId;
-  int? id;
-  String? title;
+  int userId;
+  int id;
+  String title;
   bool completed;
 
   factory Todos.fromJson(Map<String, dynamic> json) => Todos(

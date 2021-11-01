@@ -50,14 +50,15 @@ class _ResponseViewState extends State<ResponseView> {
           centerTitle: true,
         ),
         body: SizedBox(
-            height: SIZE(context: context).height,
-            width: SIZE(context: context).width,
-            child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: todosList.map((e) => TodoCard(todo: e)).toList(),
-                  ),
-                ))));
+          height: SIZE(context: context).height,
+          width: SIZE(context: context).width,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: todosList.length,
+              itemBuilder: (context, index) => TodoCard(todo: todosList[index]),
+            ),
+          ),
+        ));
   }
 }
